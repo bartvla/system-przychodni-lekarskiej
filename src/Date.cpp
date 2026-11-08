@@ -1,27 +1,38 @@
 #include "Date.h"
 
-Date::Date() {
-    dzien = 0;
-    miesiac = 0;
-    rok = 0;
-    godzina = 0;
-    minuta = 0;
+Date::Date() 
+    : dzien(1), miesiac(1), rok(2000), godzina(0), minuta(0) {}
+
+Date::Date(int d, int m, int r, int g, int min) 
+    : dzien(d), miesiac(m), rok(r), godzina(g), minuta(min) {}
+
+int Date::getDzien() const {
+    return dzien;
 }
 
-Date::Date(int dzien, int miesiac, int rok, int godzina, int minuta) {
-    this -> dzien = dzien;
-    this -> miesiac = miesiac;
-    this -> rok = rok;
-    this -> godzina = godzina;
-    this -> minuta = minuta;
+int Date::getMiesiac() const {
+    return miesiac;
 }
 
-long long Date::wMinutach() {
-    long long wynik = rok;
-    wynik = wynik * 12 * miesiac;
-    wynik = wynik * 31 * dzien;
-    wynik = wynik * 24 * godzina;
-    wynik = wynik * 60 * minuta;
+int Date::getRok() const {
+    return rok;
+}
 
-    return wynik;
+int Date::getGodzina() const {
+    return godzina;
+}
+
+int Date::getMinuta() const {
+    return minuta;
+}
+
+long long Date::wMinutach() const {
+    long long sumaMinut = 0;
+    sumaMinut += (long long)rok * 525600;
+    sumaMinut += (long long)miesiac * 43200;
+    sumaMinut += (long long)dzien * 1440;
+    sumaMinut += godzina * 60;
+    sumaMinut += minuta;
+
+    return sumaMinut;
 }
