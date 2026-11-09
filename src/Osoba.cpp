@@ -1,16 +1,14 @@
 #include "Osoba.h"
 
-Osoba::Osoba(int id, string imie, string nazwisko, string pesel) {
-    this -> id = id;
-    this -> imie = imie;
-    this -> nazwisko = nazwisko;
-    this -> pesel = pesel;
-}
+using namespace std;
 
-int Osoba::getId() {
+Osoba::Osoba(int id, string imie, string nazwisko, string pesel)
+    : id(id), imie(imie), nazwisko(nazwisko), pesel(pesel) {}
+
+int Osoba::getId() const {
     return id;
 }
 
-string Osoba::getPelneNazwisko() {
+string Osoba::getPelneNazwisko() const {
     return imie + " " + nazwisko;
 }

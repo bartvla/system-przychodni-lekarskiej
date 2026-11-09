@@ -1,19 +1,18 @@
 #pragma once
 #include <string>
-using namespace std;
 
 class Osoba {
 private:
     int id;
-    string imie;
-    string nazwisko;
-    string pesel;
+    std::string imie;
+    std::string nazwisko;
+    std::string pesel;
 
 public:
-    Osoba(int id, string imie, string nazwisko, string pesel);
-    virtual ~Osoba() {}
+    Osoba(int id, std::string imie, std::string nazwisko, std::string pesel);
+    virtual ~Osoba() = default;
 
-    int getId();
-    string getPelneNazwisko();
-    virtual string opisRoli() = 0;
+    int getId() const;
+    std::string getPelneNazwisko() const;
+    virtual std::string opisRoli() const = 0; 
 };
