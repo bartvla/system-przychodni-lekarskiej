@@ -1,17 +1,17 @@
 #include "Lekarz.h"
-#include "Date.h"
+using namespace std;
 
-Lekarz::Lekarz(int id, string imie, string nazwisko, string pesel, string specjalizacja, string numerPWZ, Date dataZatrudnienia) 
-: Osoba(id, imie, nazwisko, pesel) {
-    this -> specjalizacja = specjalizacja;
-    this -> numerPWZ = numerPWZ;
-    this -> dataZatrudnienia = dataZatrudnienia;
-}
+Lekarz::Lekarz(int id, string imie, string nazwisko, string pesel, 
+               string specjalizacja, string numerPWZ, Date dataZatrudnienia) 
+    : Osoba(id, imie, nazwisko, pesel),
+      specjalizacja(specjalizacja),
+      numerPWZ(numerPWZ),
+      dataZatrudnienia(dataZatrudnienia) {}
 
-string Lekarz::getSpecjalizacja() {
+string Lekarz::getSpecjalizacja() const {
     return specjalizacja;
 }
 
-string Lekarz::opisRoli() {
-    return "Lekarz";
+string Lekarz::opisRoli() const {
+    return "Lekarz spec. " + specjalizacja;
 }
