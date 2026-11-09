@@ -1,8 +1,8 @@
 #pragma once
+#include <string>
 #include <vector>
 #include "Osoba.h"
 // #include "KartaPacjenta.h"
-using namespace std;
 
 class Recepta;
 
@@ -11,9 +11,10 @@ private:
     // KartaPacjenta karta;
 
 public:
-    Pacjent(int id, string imie, string nazwisko, string pesel);
+    Pacjent(int id, std::string imie, std::string nazwisko, std::string pesel);
+    virtual ~Pacjent() = default;
 
     // KartaPacjenta& getKarta();
-    string opisRoli() override;
-    // vector<Recepta*> pobierzRecepty();
+    std::string opisRoli() const override;
+    // std::vector<Recepta*> pobierzRecepty();
 };
