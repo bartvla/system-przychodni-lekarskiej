@@ -6,24 +6,27 @@ class Lekarz;
 class SlotCzasowy;
 class Recepta;
 
-class Wizyta {
+class Wizyta
+{
 private:
     int id;
-    Pacjent* pacjent;
-    Lekarz* lekarz;
-    SlotCzasowy* slot;
+    Pacjent *pacjent;
+    Lekarz *lekarz;
+    SlotCzasowy *slot;
     StatusWizyty status;
-    Recepta* recepta;
+    Recepta *recepta;
 
 public:
-    Wizyta(int id, Pacjent* pacjent, Lekarz* lekarz, SlotCzasowy* slot);
+    Wizyta(int id, Pacjent *pacjent, Lekarz *lekarz, SlotCzasowy *slot);
     ~Wizyta();
 
     int getId();
-    SlotCzasowy* getSlot();
-    Recepta* getRecepta();
+    Lekarz *getLekarz();
+    SlotCzasowy *getSlot();
+    Recepta *getRecepta();
+    StatusWizyty getStatus();
+
+    bool przypiszRecepte(Recepta *r);
     bool odwolaj();
     bool zakoncz();
-    void przypiszRecepte(Recepta* r);
-    StatusWizyty getStatus();
 };
