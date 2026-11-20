@@ -7,22 +7,25 @@
 #include "SlotCzasowy.h"
 using namespace std;
 
-class SystemPrzychodni {
+class SystemPrzychodni
+{
 private:
-    vector<Pacjent*> pacjenci;
-    vector<Lekarz*> lekarze;
-    vector<Wizyta*> wizyty;
+    vector<unique_ptr<Pacjent>> pacjenci;
+    vector<unique_ptr<Lekarz>> lekarze;
+    vector<unique_ptr<Wizyta>> wizyty;
+    int nastepneIdWizyty = 1;
+    int nastepneIdRecepty = 1;
 
 public:
-    ~SystemPrzychodni();
-
-    void dodajPacjenta(Pacjent* p);
-    void dodajLekarza(Lekarz* l);
-    Pacjent* znajdzPacjenta(int idPacjenta);
-    Lekarz* znajdzLekarza(int idLekarza);
-    Wizyta* znajdzWizyte(int idWizyty);
-    vector<Lekarz*> wyszukajLekarzy(string specjalizacja);
-    vector<SlotCzasowy*> pobierzWolneSloty(int idLekarza);
-    Wizyta* zarezerwujWizyte(int idPacjenta, int idLekarza, int idSlotu);
+    Pacjent *dodajPacjenta(int id, string imie, string nazwisko, string pesel);
+    Pacjent *znajdzPacjenta(int idPacjenta);
+    Lekarz *dodajLekarza(int id, string imie, string nazwisko, string pesel, string specjalizacja, string numerPWZ, Date dataZatrudnienia);
+    Lekarz *znajdzLekarza(int idLekarza);
+    vector<Lekarz *> wyszukajLekarzy(string specjalizacja);
+    vector<SlotCzasowy *> pobierzWolneSloty(int idLekarza);
+    Wizyta *znajdzWizyte(int idWizyty);
+    Wizyta *zarezerwujWizyte(int idPacjenta, int idLekarza, int idSlotu);
     bool odwolajWizyte(int idWizyty);
+    bool zakonczWizyte(int idWizyty);
+    Recepta *wystawRecepte(int idWizyty, int idLekarza, Date dataWystawienia, Date terminWaznosci);
 };
