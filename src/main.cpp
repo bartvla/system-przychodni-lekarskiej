@@ -17,10 +17,28 @@ void wyczyscBufor() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+void wyswietlPacjentow(SystemPrzychodni& przychodnia) {
+    cout << "Pacjenci:\n";
+    for (int id = 1; ; ++id) {
+        Pacjent* p = przychodnia.znajdzPacjenta(id);
+        if (!p) break;
+        cout << "  [" << id << "] " << p->getPelneNazwisko() << "\n";
+    }
+}
+
+void wyswietlLekarzy(SystemPrzychodni& przychodnia) {
+    cout << "Lekarze:\n";
+    for (int id = 1; ; ++id) {
+        Lekarz* l = przychodnia.znajdzLekarza(id);
+        if (!l) break;
+        cout << "  [" << id << "] " << l->getPelneNazwisko()
+             << " (" << l->getSpecjalizacja() << ")\n";
+    }
+}
+
 int main() {
     SystemPrzychodni przychodnia;
 
-    // Dane poczatkowe (pacjenci i lekarze roznych specjalizacji)
     przychodnia.dodajPacjenta(1, "Jan", "Kowalski", "11111111111");
     przychodnia.dodajPacjenta(2, "Anna", "Nowak", "22222222222");
     przychodnia.dodajPacjenta(3, "Katarzyna", "Wojcik", "33333333333");
@@ -31,7 +49,6 @@ int main() {
     Lekarz* l4 = przychodnia.dodajLekarza(4, "Magdalena", "Kaminska", "77777777777", "pediatra", "1004", Date(15, 5, 2019));
     Lekarz* l5 = przychodnia.dodajLekarza(5, "Tomasz", "Szymanski", "88888888888", "ortopeda", "1005", Date(10, 9, 2017));
 
-    // Wstepne sloty czasowe w kalendarzach lekarzy
     l1->dodajSlot(101, Date(25, 11, 2026, 9, 0), 30);
     l1->dodajSlot(102, Date(25, 11, 2026, 9, 30), 30);
     l2->dodajSlot(201, Date(25, 11, 2026, 11, 0), 30);
@@ -39,15 +56,10 @@ int main() {
     l4->dodajSlot(401, Date(25, 11, 2026, 14, 0), 20);
     l4->dodajSlot(402, Date(25, 11, 2026, 14, 20), 20);
     l5->dodajSlot(501, Date(27, 11, 2026, 8, 30), 45);
-    // Lekarz ID 3 (Marek Lewandowski) celowo nie ma slotow do przetestowania przypadku brzegowego
 
     cout << "=== SYSTEM PRZYCHODNI LEKARSKIEJ ===\n";
-    cout << "Pacjenci w bazie: [1] Jan Kowalski, [2] Anna Nowak, [3] Katarzyna Wojcik\n";
-    cout << "Lekarze w bazie:  [1] Piotr Zielinski (kardiolog)\n";
-    cout << "                  [2] Ewa Wisniewska (dermatolog)\n";
-    cout << "                  [3] Marek Lewandowski (kardiolog - brak wolnych terminow)\n";
-    cout << "                  [4] Magdalena Kaminska (pediatra)\n";
-    cout << "                  [5] Tomasz Szymanski (ortopeda)\n";
+    wyswietlPacjentow(przychodnia);
+    wyswietlLekarzy(przychodnia);
 
     int wybor = -1;
     while (wybor != 0) {
@@ -94,20 +106,14 @@ int main() {
             }
             case 2: {
                 int idPacjenta, idLekarza, idSlotu;
-                cout << "Pacjenci: [1] Jan Kowalski, [2] Anna Nowak, [3] Katarzyna Wojcik\n";
+                wyswietlPacjentow(przychodnia);
                 cout << "Podaj ID pacjenta: "; cin >> idPacjenta;
                 if (!przychodnia.znajdzPacjenta(idPacjenta)) {
                     cout << "Nie znaleziono pacjenta o ID: " << idPacjenta << "\n";
                     break;
                 }
 
-                cout << "Lekarze:\n";
-                for (int id = 1; id <= 5; ++id) {
-                    Lekarz* lek = przychodnia.znajdzLekarza(id);
-                    if (lek) {
-                        cout << "  [" << id << "] " << lek->getPelneNazwisko() << " (" << lek->getSpecjalizacja() << ")\n";
-                    }
-                }
+                wyswietlLekarzy(przychodnia);
                 cout << "Podaj ID lekarza: "; cin >> idLekarza;
                 Lekarz* lekarz = przychodnia.znajdzLekarza(idLekarza);
                 if (!lekarz) {
@@ -151,13 +157,7 @@ int main() {
             }
             case 4: {
                 int idLekarza, idSlotu, dzien, miesiac, rok, godz, min, czas;
-                cout << "Lekarze:\n";
-                for (int id = 1; id <= 5; ++id) {
-                    Lekarz* lek = przychodnia.znajdzLekarza(id);
-                    if (lek) {
-                        cout << "  [" << id << "] " << lek->getPelneNazwisko() << " (" << lek->getSpecjalizacja() << ")\n";
-                    }
-                }
+                wyswietlLekarzy(przychodnia);
                 cout << "Podaj ID lekarza: "; cin >> idLekarza;
                 Lekarz* l = przychodnia.znajdzLekarza(idLekarza);
                 if (!l) {
@@ -187,15 +187,9 @@ int main() {
             }
             case 6: {
                 int idWizyty, idLekarza;
-                string lek, dawkowanie;
+                string nazwaLeku, dawkowanie;
                 cout << "Podaj ID wizyty: "; cin >> idWizyty;
-                cout << "Lekarze:\n";
-                for (int id = 1; id <= 5; ++id) {
-                    Lekarz* lek = przychodnia.znajdzLekarza(id);
-                    if (lek) {
-                        cout << "  [" << id << "] " << lek->getPelneNazwisko() << " (" << lek->getSpecjalizacja() << ")\n";
-                    }
-                }
+                wyswietlLekarzy(przychodnia);
                 cout << "Podaj ID lekarza wystawiajacego: "; cin >> idLekarza;
                 Recepta* r = przychodnia.wystawRecepte(idWizyty, idLekarza, Date(21, 11, 2026), Date(21, 12, 2026));
                 if (!r) {
@@ -203,15 +197,15 @@ int main() {
                     break;
                 }
                 wyczyscBufor();
-                cout << "Podaj nazwe leku: "; getline(cin, lek);
+                cout << "Podaj nazwe leku: "; getline(cin, nazwaLeku);
                 cout << "Podaj dawkowanie: "; getline(cin, dawkowanie);
-                r->dodajPozycje(PozycjaRecepty(lek, dawkowanie));
+                r->dodajPozycje(PozycjaRecepty(nazwaLeku, dawkowanie));
                 cout << "SUKCES! Wystawiono recepte:\n" << r->opis() << "\n";
                 break;
             }
             case 7: {
                 int idPacjenta, d, m, r;
-                cout << "Pacjenci: [1] Jan Kowalski, [2] Anna Nowak, [3] Katarzyna Wojcik\n";
+                wyswietlPacjentow(przychodnia);
                 cout << "Podaj ID pacjenta: "; cin >> idPacjenta;
                 Pacjent* p = przychodnia.znajdzPacjenta(idPacjenta);
                 if (!p) {
