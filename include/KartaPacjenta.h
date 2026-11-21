@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-using namespace std;
 
 class Wizyta;
 class Recepta;
@@ -8,10 +7,10 @@ class Recepta;
 class KartaPacjenta {
 private:
     int numerKarty;
-    vector<Wizyta*> historiaWizyt;
+    std::vector<Wizyta*> historiaWizyt;
 
 public:
     KartaPacjenta(int numerKarty);
     void dodajWizyte(Wizyta* w);
-    vector<Recepta*> pobierzRecepty();
+    std::vector<Recepta*> pobierzRecepty();
 };

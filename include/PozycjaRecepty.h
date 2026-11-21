@@ -1,13 +1,12 @@
 #pragma once
 #include <string>
-using namespace std;
 
 class PozycjaRecepty {
 private:
-    string lek;
-    string dawkowanie;
+    std::string lek;
+    std::string dawkowanie;
 
 public:
-    PozycjaRecepty(string lek, string dawkowanie);
-    string opis();
+    PozycjaRecepty(std::string lek, std::string dawkowanie);
+    std::string opis() const;
 };
