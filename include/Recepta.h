@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "Date.h"
 #include "PozycjaRecepty.h"
 
@@ -14,6 +15,7 @@ private:
 public:
     Recepta(int id, Date dataWystawienia, Date terminWaznosci);
     int getId();
+    Date getTerminWaznosci() const { return terminWaznosci; }
     void dodajPozycje(PozycjaRecepty p);
     bool czyWazna(Date dzis);
     std::string opis();
