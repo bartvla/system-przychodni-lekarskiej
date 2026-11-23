@@ -1,4 +1,5 @@
 #include "Recepta.h"
+using namespace std;
 
 Recepta::Recepta(int id, Date dataWystawienia, Date terminWaznosci)
     : id(id), dataWystawienia(dataWystawienia), terminWaznosci(terminWaznosci) {}

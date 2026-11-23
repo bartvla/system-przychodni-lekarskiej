@@ -1,5 +1,6 @@
 #include "SystemPrzychodni.h"
 #include "Recepta.h"
+using namespace std;
 
 Pacjent *SystemPrzychodni::dodajPacjenta(int id, string imie, string nazwisko, string pesel)
 {

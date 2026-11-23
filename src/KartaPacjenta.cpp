@@ -1,5 +1,6 @@
 #include "KartaPacjenta.h"
 #include "Wizyta.h"
+using namespace std;
 
 KartaPacjenta::KartaPacjenta(int numerKarty)
     : numerKarty(numerKarty) {}
